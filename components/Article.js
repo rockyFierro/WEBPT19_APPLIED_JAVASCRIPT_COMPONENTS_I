@@ -88,7 +88,8 @@ const data = [
   }
 ];
 
-/* Step 1: Write a component called 'articleMaker' to create an article. You want your component to return markup like the template below: 
+
+/* Step 1: Write a component called 'articleMaker' to create an article. You want your component to return markup like the template below:
 
   <div class="article">
     <h2>{title of the article}</h2>
@@ -98,7 +99,55 @@ const data = [
 
     <span class='expandButton'>+</span>
   </div>
+*/
+const makeA = (element) => document.createElement(element);
 
+const articleMaker = (title, date, p1, p2, p3) => {
+  const article = makeA("div");
+  const articleTitle = makeA("h2");
+  const articleDate = makeA("p");
+  const articleFirstParagraph = makeA("p");
+  const articleSecondParagraph = makeA("p");
+  const articleThirdParagraph = makeA("p");
+  const articleButton = makeA("span");
+
+  article.appendChild(articleTitle);
+  article.appendChild(articleDate);
+  article.appendChild(articleFirstParagraph);
+  article.appendChild(articleSecondParagraph);
+  article.appendChild(articleThirdParagraph);
+  article.appendChild(articleButton);
+
+  article.classList.add("article");
+  articleButton.classList.add("expandButton");
+  articleTitle.textContent = title;
+  articleDate.textContent = date;
+  articleFirstParagraph.textContent = p1;
+  articleSecondParagraph.textContent = p2;
+  articleThirdParagraph.textContent = p3;
+
+  articleButton.innerHTML = `<svg viewBox="0 0 320 512" width="12" title="angle-double-up">
+  <path d="M177 255.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 351.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 425.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1zm-34-192L7 199.7c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l96.4-96.4 96.4 96.4c9.4 9.4 24.6 9.4 33.9 0l22.6-22.6c9.4-9.4 9.4-24.6 0-33.9l-136-136c-9.2-9.4-24.4-9.4-33.8 0z" />
+</svg>
+<svg viewBox="0 0 320 512" width="12" title="angle-double-down">
+  <path d="M143 256.3L7 120.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0L313 86.3c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.4 9.5-24.6 9.5-34 .1zm34 192l136-136c9.4-9.4 9.4-24.6 0-33.9l-22.6-22.6c-9.4-9.4-24.6-9.4-33.9 0L160 352.1l-96.4-96.4c-9.4-9.4-24.6-9.4-33.9 0L7 278.3c-9.4 9.4-9.4 24.6 0 33.9l136 136c9.4 9.5 24.6 9.5 34 .1z" />
+</svg>`;
+
+articleButton.style.left = "99%"
+
+  articleButton.addEventListener('click', ()=>{
+    article.classList.toggle("article-open");
+
+
+  });
+
+  return article;
+}
+
+data.forEach(article =>{
+  document.getElementsByClassName("articles")[0].appendChild(articleMaker(article.title,article.date,article.firstParagraph, article.secondParagraph, article.thirdParagraph))
+})
+/*
   Hint: You will need to use createElement more than once here!
 
   Your function should take either an object as its one argument, or 5 separate strings mapping to each property of an article object.
@@ -111,3 +160,5 @@ const data = [
 
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 */
+document.getElementsByClassName('articles')[0].appendChild(articleMaker("Merlin's Advice", 'Jan 1st, 1958',`"The best thing for being sad", replied Merlin, beginning to puff and blow, "is to learn something."` , `"That's the only thing that never fails. You may grow old and trembling in your anatomies, you may lie awake at night listening to the disorder of your veins, you may miss your only love, you may see the world about you devastated by evil lunatics, or know your honour trampled in the sewers of baser minds."` , `"There is only one thing for it then — to learn. Learn why the world wags and what wags it. That is the only thing which the mind can never exhaust, never alienate, never be tortured by, never fear or distrust, and never dream of regretting. Learning is the only thing for you. Look what a lot of things there are to learn."`
+));
